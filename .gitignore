@@ -1,0 +1,4 @@
+.DS_Store
+*.html.bak
+.cursor/
+node_modules/

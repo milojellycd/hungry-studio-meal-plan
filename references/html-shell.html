@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hungry Studio · 10F 排餐计划 7/13–7/17</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+<style>
+  /* 对齐 职能线工作台Demo：Hallmark modern-minimal · Quiet · cool-indigo */
+  :root {
+    --font-display: 'Inter', 'Inter Tight', -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Monaco, Consolas, monospace;
+
+    --color-paper:   oklch(99% 0.002 270);
+    --color-paper-2: oklch(97% 0.004 270);
+    --color-paper-3: oklch(94% 0.006 270);
+    --color-ink:     oklch(20% 0.014 270);
+    --color-ink-2:   oklch(40% 0.010 270);
+    --color-ink-3:   oklch(58% 0.008 270);
+    --color-ink-4:   oklch(72% 0.006 270);
+    --color-rule:    oklch(91% 0.006 270);
+    --color-rule-2:  oklch(86% 0.008 270);
+
+    --color-accent:      oklch(56% 0.18 268);
+    --color-accent-soft: oklch(96% 0.028 268);
+    --color-accent-2:    oklch(50% 0.20 285);
+
+    --color-ok:      oklch(60% 0.17 155);
+    --color-ok-soft: oklch(95% 0.05 155);
+    --fin:           oklch(62% 0.13 230);
+    --fin-soft:      oklch(95% 0.03 230);
+    --buy:           oklch(62% 0.13 155);
+    --buy-soft:      oklch(95% 0.04 155);
+    --adm:           oklch(58% 0.12 285);
+    --adm-soft:      oklch(95% 0.03 285);
+
+    --shadow-sm: 0 1px 2px oklch(20% 0.02 270 / 0.06);
+    --shadow-md: 0 2px 6px oklch(20% 0.02 270 / 0.06), 0 1px 2px oklch(20% 0.02 270 / 0.04);
+    --shadow-lg: 0 8px 24px oklch(20% 0.02 270 / 0.08), 0 2px 6px oklch(20% 0.02 270 / 0.05);
+
+    --radius-md: 6px;
+    --radius-lg: 10px;
+    --radius-xl: 14px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: var(--font-body);
+    background: var(--color-paper-2);
+    color: var(--color-ink);
+    line-height: 1.55;
+    font-feature-settings: 'cv11', 'ss01';
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 40px 24px 72px;
+  }
+  .hero {
+    margin: 0 0 28px;
+    padding: 0 0 24px;
+    border-bottom: 1px solid var(--color-rule);
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--color-ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 14px;
+  }
+  .hero-meta .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 0 4px var(--color-accent-soft);
+  }
+  h1 {
+    margin: 0 0 8px;
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 750;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+  }
+  .sub {
+    margin: 0;
+    color: var(--color-ink-3);
+    font-size: 0.92rem;
+  }
+  h2 {
+    margin: 0 0 10px;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+  }
+  .summary {
+    width: 100%;
+    border-collapse: collapse;
+    background: oklch(100% 0 0);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid var(--color-rule);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 16px;
+  }
+  .summary th, .summary td {
+    padding: 11px 12px;
+    border-bottom: 1px solid var(--color-rule);
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  .summary th {
+    background: var(--color-paper-2);
+    font-weight: 600;
+    color: var(--color-ink-2);
+  }
+  .summary td:first-child, .summary th:first-child {
+    text-align: left;
+    color: var(--color-ink-3);
+    font-weight: 500;
+  }
+  .summary tbody tr:nth-child(odd) td { background: oklch(100% 0 0); }
+  .summary tbody tr:nth-child(even) td { background: var(--color-paper); }
+  .summary tr:last-child td { border-bottom: 0; }
+  .rec {
+    display: inline-block;
+    min-width: 3.2em;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    font-weight: 650;
+    font-size: 0.82rem;
+    box-shadow: none;
+  }
+  .callout {
+    background: var(--color-paper);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-lg);
+    padding: 12px 14px;
+    margin-bottom: 20px;
+    font-size: 0.86rem;
+    color: var(--color-ink-2);
+  }
+  .callout strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.88rem;
+    color: var(--color-ink);
+    font-weight: 650;
+  }
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .pill {
+    border: 1px solid var(--color-rule-2);
+    background: oklch(100% 0 0);
+    color: var(--color-ink-2);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 0.84rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+  }
+  .pill:hover {
+    background: var(--color-paper-2);
+    border-color: var(--color-rule-2);
+    box-shadow: none;
+    transform: none;
+  }
+  .pill.active {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+    font-weight: 600;
+    box-shadow: none;
+  }
+  .pill.toggle.active {
+    background: var(--color-accent-2);
+    border-color: var(--color-accent-2);
+    color: #fff;
+    box-shadow: none;
+  }
+  .meal {
+    background: oklch(100% 0 0);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-rule);
+    margin-bottom: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: none;
+  }
+  .meal-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--color-rule);
+    background: var(--color-paper);
+  }
+  .meal-head h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+  }
+  .badge {
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    font-size: 0.76rem;
+    font-weight: 650;
+    padding: 4px 9px;
+    border-radius: 999px;
+    box-shadow: none;
+  }
+  table.lines {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  table.lines th, table.lines td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--color-rule);
+    vertical-align: top;
+    font-size: 0.84rem;
+  }
+  table.lines tr:last-child td { border-bottom: 0; }
+  table.lines tbody tr:nth-child(odd) td { background: oklch(100% 0 0); }
+  table.lines tbody tr:nth-child(even) td { background: var(--color-paper); }
+  table.lines thead tr { background: var(--color-paper-2); }
+  table.lines th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--color-ink-3);
+    background: var(--color-paper-2);
+    border-bottom: 1px solid var(--color-rule);
+  }
+  /* 靠墙 / 靠窗：同一表头底色，仅用文字色 + soft 底区分，不割裂 */
+  table.lines th.wall,
+  table.lines th.window {
+    background: var(--color-paper-2);
+    color: var(--color-ink-2);
+  }
+  table.lines th.wall::before,
+  table.lines th.window::before {
+    content: none;
+  }
+  table.lines th.is-rec {
+    color: var(--color-accent);
+    box-shadow: inset 0 -2px 0 var(--color-accent);
+  }
+  table.lines tbody td:nth-child(2),
+  table.lines tbody td:nth-child(3),
+  table.lines tbody tr:nth-child(odd) td:nth-child(2),
+  table.lines tbody tr:nth-child(even) td:nth-child(2),
+  table.lines tbody tr:nth-child(odd) td:nth-child(3),
+  table.lines tbody tr:nth-child(even) td:nth-child(3) {
+    background: inherit;
+  }
+  table.lines tbody tr:nth-child(odd) td:nth-child(2) { background: oklch(100% 0 0); }
+  table.lines tbody tr:nth-child(even) td:nth-child(2) { background: var(--color-paper); }
+  table.lines tbody tr:nth-child(odd) td:nth-child(3) { background: oklch(100% 0 0); }
+  table.lines tbody tr:nth-child(even) td:nth-child(3) { background: var(--color-paper); }
+  .cat {
+    color: var(--color-ink-3);
+    font-weight: 600;
+    white-space: nowrap;
+    width: 72px;
+  }
+  .dishes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+  }
+  .dish-ok { color: var(--color-ink); }
+  .dish-no {
+    color: var(--color-ink-4);
+    text-decoration: line-through;
+  }
+  .dish-pick {
+    color: var(--color-ink-4);
+    text-decoration: line-through;
+  }
+  .empty { color: var(--color-ink-4); }
+  .note {
+    margin-top: 12px;
+    font-size: 0.78rem;
+    color: var(--color-ink-4);
+  }
+  @media (max-width: 720px) {
+    .wrap { padding: 20px 14px 48px; }
+    table.lines th, table.lines td { padding: 8px; font-size: 0.8rem; }
+    .cat { width: 56px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-meta"><span class="dot"></span><span>Hungry Studio · 10F</span><span>·</span><span>7/13–7/17</span></div>
+    <h1>排餐计划</h1>
+    <p class="sub">靠墙＝客林 / 靠窗＝三福 · 已按你的忌口自动筛选</p>
+  </div>
+
+  <h2>每顿去哪吃</h2>
+  <table class="summary" id="summary"></table>
+
+  <div class="callout">
+    <strong>忌口（自动避开）</strong>
+    肥肉（五花/红烧肉/白肉/梅花肉/腊肉腊肠/回锅肉/猪蹄/扣肉）、内脏（毛血旺/肥肠/牛杂）、有刺的鱼、茄子、芹菜、苦瓜苦菜、菌菇（香菇/杏鲍菇/平菇等）、韭菜、南瓜、冬瓜。辣度全能吃。木耳默认能吃。
+  </div>
+
+  <div class="toolbar">
+    <div class="pills" id="dayPills"></div>
+    <button class="pill toggle" id="hideBtn" type="button">只看我能吃的</button>
+  </div>
+
+  <div id="dayView"></div>
+  <p class="note">标记规则：整道划掉＝忌口且分不开（如芹菜包子、蒸鱼头）；只划掉某个词＝那个配料挑出即可，整道仍能吃（如~~芹菜~~炒肉丝、青笋木耳炒~~培根~~）。某道菜名认错了，告诉我是哪天哪顿哪条线即可改。</p>
+</div>
+
+<script>
+const y = (n) => ({ n, ok: true });
+const x = (n) => ({ n, ok: false });
+const p = (n, pick) => ({ n, ok: true, pick });
+
+const DAYS = [/* PASTE_WEEK_DATA */];
+
+let dayId = "周一";
+let hideAvoid = false;
+
+function dishHTML(d) {
+  if (!d.ok) return `<span class="dish-no">${esc(d.n)}</span>`;
+  if (d.pick && d.n.includes(d.pick)) {
+    const i = d.n.indexOf(d.pick);
+    return `<span class="dish-ok">${esc(d.n.slice(0, i))}<span class="dish-pick">${esc(d.pick)}</span>${esc(d.n.slice(i + d.pick.length))}</span>`;
+  }
+  return `<span class="dish-ok">${esc(d.n)}</span>`;
+}
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[c]));
+}
+
+function cellHTML(items) {
+  const shown = hideAvoid ? items.filter((it) => it.ok) : items;
+  if (!shown.length) return `<span class="empty">—</span>`;
+  return `<div class="dishes">${shown.map(dishHTML).join("")}</div>`;
+}
+
+function renderSummary() {
+  const head = ["", ...DAYS.map((d) => d.label)].map((h) => `<th>${esc(h)}</th>`).join("");
+  const rows = ["早餐", "午餐", "晚餐"].map((mealName) => {
+    const cells = DAYS.map((d) => {
+      const m = d.meals.find((mm) => mm.label === mealName);
+      return `<td><span class="rec">${m.rec}</span></td>`;
+    }).join("");
+    return `<tr><td>${mealName}</td>${cells}</tr>`;
+  }).join("");
+  document.getElementById("summary").innerHTML = `<thead><tr>${head}</tr></thead><tbody>${rows}</tbody>`;
+}
+
+function renderPills() {
+  document.getElementById("dayPills").innerHTML = DAYS.map(
+    (d) => `<button type="button" class="pill ${d.id === dayId ? "active" : ""}" data-day="${d.id}">${esc(d.label)}</button>`
+  ).join("");
+  document.getElementById("hideBtn").classList.toggle("active", hideAvoid);
+}
+
+function renderDay() {
+  const day = DAYS.find((d) => d.id === dayId) || DAYS[0];
+  document.getElementById("dayView").innerHTML = day.meals.map((meal) => {
+    const cats = meal.靠墙.map((c) => c.c);
+    const find = (arr, c) => (arr.find((it) => it.c === c)?.items || []);
+    const recWall = meal.rec === "靠墙";
+    const rows = cats.map((c) => `
+      <tr>
+        <td class="cat">${esc(c)}</td>
+        <td>${cellHTML(find(meal.靠墙, c))}</td>
+        <td>${cellHTML(find(meal.靠窗, c))}</td>
+      </tr>`).join("");
+    return `
+      <section class="meal">
+        <div class="meal-head">
+          <h3>${esc(meal.label)}</h3>
+          <span class="badge">推荐 ${esc(meal.rec)}</span>
+        </div>
+        <table class="lines">
+          <thead>
+            <tr>
+              <th>品类</th>
+              <th class="wall ${recWall ? "is-rec" : ""}">靠墙·客林${recWall ? "（推荐）" : ""}</th>
+              <th class="window ${!recWall ? "is-rec" : ""}">靠窗·三福${!recWall ? "（推荐）" : ""}</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </section>`;
+  }).join("");
+}
+
+function render() {
+  renderSummary();
+  renderPills();
+  renderDay();
+}
+
+document.getElementById("dayPills").addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-day]");
+  if (!btn) return;
+  dayId = btn.dataset.day;
+  render();
+});
+
+document.getElementById("hideBtn").addEventListener("click", () => {
+  hideAvoid = !hideAvoid;
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
